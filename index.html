@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow | Project Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">T</div>
+            <span>TaskFlow</span>
+        </div>
+
+        <div class="menu-label">WORKSPACE</div>
+
+        <nav>
+            <a href="#" class="nav-link active" data-page="dashboard">
+                <i data-lucide="layout-dashboard"></i>
+                Dashboard
+            </a>
+
+            <a href="#" class="nav-link" data-page="tasks">
+                <i data-lucide="check-square"></i>
+                My Tasks
+            </a>
+
+            <a href="#" class="nav-link" data-page="analytics">
+                <i data-lucide="chart-no-axes-combined"></i>
+                Analytics
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="profile">
+                <div class="avatar">B</div>
+                <div>
+                    <strong>Bhushan</strong>
+                    <small>Administrator</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h2 id="page-title">Dashboard</h2>
+                <p>Welcome back! Here's your productivity overview.</p>
+            </div>
+
+            <button class="primary-btn" id="open-modal">
+                <i data-lucide="plus"></i>
+                New Task
+            </button>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard-page" class="page">
+
+            <div class="welcome-card">
+                <div>
+                    <span>YOUR WORKSPACE</span>
+                    <h1>Make today productive.</h1>
+                    <p>Organize your work and achieve your goals.</p>
+                </div>
+                <div class="welcome-icon">🚀</div>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Total Tasks</span>
+                        <i data-lucide="layers"></i>
+                    </div>
+                    <h2 id="total-tasks">0</h2>
+                    <small>All created tasks</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Completed</span>
+                        <i data-lucide="check-circle"></i>
+                    </div>
+                    <h2 id="completed-tasks">0</h2>
+                    <small>Successfully completed</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Pending</span>
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <h2 id="pending-tasks">0</h2>
+                    <small>Tasks remaining</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Productivity</span>
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <h2 id="productivity">0%</h2>
+                    <small>Completion rate</small>
+                </div>
+
+            </div>
+
+            <div class="content-card">
+
+                <div class="section-header">
+                    <div>
+                        <h3>Recent Tasks</h3>
+                        <p>Manage your latest activities.</p>
+                    </div>
+
+                    <button class="text-btn" id="view-all">
+                        View all →
+                    </button>
+                </div>
+
+                <div id="dashboard-task-list" class="task-list"></div>
+
+            </div>
+
+        </section>
+
+        <!-- TASKS PAGE -->
+        <section id="tasks-page" class="page hidden">
+
+            <div class="content-card">
+
+                <div class="section-header">
+                    <div>
+                        <h3>All Tasks</h3>
+                        <p>Manage all your projects and activities.</p>
+                    </div>
+                </div>
+
+                <div class="filters">
+
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Search tasks..."
+                    >
+
+                    <select id="filter-status">
+                        <option value="all">All Tasks</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                    </select>
+
+                </div>
+
+                <div id="all-task-list" class="task-list"></div>
+
+            </div>
+
+        </section>
+
+        <!-- ANALYTICS PAGE -->
+        <section id="analytics-page" class="page hidden">
+
+            <div class="content-card">
+
+                <h3>Productivity Analytics</h3>
+                <p>Your overall task completion performance.</p>
+
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span>Completion rate</span>
+                        <strong id="analytics-percent">0%</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div id="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="analytics-stats">
+                    <div>
+                        <h2 id="analytics-total">0</h2>
+                        <span>Total tasks</span>
+                    </div>
+
+                    <div>
+                        <h2 id="analytics-done">0</h2>
+                        <span>Completed tasks</span>
+                    </div>
+
+                    <div>
+                        <h2 id="analytics-pending">0</h2>
+                        <span>Pending tasks</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- CREATE TASK MODAL -->
+<div class="modal hidden" id="task-modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h3>Create New Task</h3>
+            <button id="close-modal">✕</button>
+        </div>
+
+        <form id="task-form">
+
+            <label>Task Name</label>
+            <input
+                type="text"
+                id="task-name"
+                placeholder="Enter task name"
+                required
+                maxlength="100"
+            >
+
+            <label>Description</label>
+            <textarea
+                id="task-description"
+                placeholder="Describe your task"
+                rows="3"
+                maxlength="500"
+            ></textarea>
+
+            <label>Priority</label>
+            <select id="task-priority">
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+            </select>
+
+            <label>Due Date</label>
+            <input type="date" id="task-date">
+
+            <button type="submit" class="primary-btn full-btn">
+                Create Task
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
